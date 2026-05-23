@@ -63,7 +63,7 @@ export default function ProductCards({ onAddToCart }: ProductCardsProps) {
                                 {product.name}
                             </h3>
 
-                            <div className="relative mx-auto mt-10 h-[220px] w-full overflow-visible transition-transform duration-500 group-hover:scale-140">
+                            <div className="relative mx-auto mt-10 h-[220px] w-full overflow-visible transition-transform duration-500 group-hover:scale-125">
                                 {/* Preview Image */}
                                 <Image
                                     src={`${BASE_PATH}/First.png`}
