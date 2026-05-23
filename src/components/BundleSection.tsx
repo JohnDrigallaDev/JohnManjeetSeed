@@ -61,7 +61,7 @@ export default function BundleSection() {
                                     className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#eaf4ff]"
                                 >
                                     <Image
-                                        src={`/${image}`}
+                                        src={`${BASE_PATH}/${image}`}
                                         alt={image}
                                         fill
                                         sizes="(max-width: 768px) 33vw, 250px"
