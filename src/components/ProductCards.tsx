@@ -4,6 +4,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { products } from "../data/products";
 import type { CartItem } from "../app/page";
+const BASE_PATH =
+    process.env.NODE_ENV === "production"
+        ? "/JohnManjeetSeed"
+        : "";
 
 type ProductCardsProps = {
     onAddToCart: (product: Omit<CartItem, "qty">) => void;
@@ -62,7 +66,7 @@ export default function ProductCards({ onAddToCart }: ProductCardsProps) {
                             <div className="relative mx-auto mt-10 h-[220px] w-full overflow-visible">
                                 {/* Preview Image */}
                                 <Image
-                                    src="/First.png"
+                                    src={`${BASE_PATH}/First.png`}
                                     alt={product.name}
                                     fill
                                     sizes="(max-width: 768px) 80vw, 350px"
@@ -84,7 +88,7 @@ export default function ProductCards({ onAddToCart }: ProductCardsProps) {
                                         e.currentTarget.currentTime = 0;
                                     }}
                                 >
-                                    <source src="/3d.webm" type="video/webm" />
+                                    <source src={`${BASE_PATH}/3d.webm`} type="video/webm" />
                                 </video>
                             </div>
 

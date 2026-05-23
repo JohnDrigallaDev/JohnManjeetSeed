@@ -1,6 +1,10 @@
 "use client";
 
 import Image from "next/image";
+const BASE_PATH =
+    process.env.NODE_ENV === "production"
+        ? "/JohnManjeetSeed"
+        : "";
 
 export default function Hero() {
     return (
@@ -10,7 +14,7 @@ export default function Hero() {
                 {/* Desktop Image */}
                 <div className="absolute inset-0 hidden md:block">
                     <Image
-                        src="/hero.png"
+                        src={`${BASE_PATH}/hero.png`}
                         alt="Hero"
                         fill
                         priority
@@ -22,7 +26,7 @@ export default function Hero() {
                 {/* Mobile Image */}
                 <div className="absolute inset-0 md:hidden">
                     <Image
-                        src="/hero_mobile.png"
+                        src={`${BASE_PATH}/hero_mobile.png`}
                         alt="Hero Mobile"
                         fill
                         priority

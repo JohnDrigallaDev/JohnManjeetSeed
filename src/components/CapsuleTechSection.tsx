@@ -8,7 +8,7 @@ export default function CapsuleTechSection() {
         <section className="relative overflow-hidden bg-[#f6faff] px-0 py-24 md:py-32">
             <div className="absolute inset-0">
                 <Image
-                    src="/background1.png"
+                    src={`${BASE_PATH}/background1.png`}
                     alt="Microbiome background"
                     fill
                     sizes="100vw"

@@ -42,7 +42,7 @@ export default function BundleSection() {
                     <div className="grid gap-4">
                         <div className="relative aspect-[16/9] overflow-hidden rounded-3xl bg-[#eaf4ff]">
                             <Image
-                                src="/bild1.png"
+                                src={`${BASE_PATH}/bild1.png`}
                                 alt="Bundle hero"
                                 fill
                                 sizes="(max-width: 768px) 100vw, 760px"
