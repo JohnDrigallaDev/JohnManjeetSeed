@@ -7,27 +7,31 @@ import { products } from "../data/products";
 import type { CartItem } from "../app/page";
 
 const BASE_PATH =
-    process.env.NODE_ENV === "production" ? "/JohnManjeetSeed" : "";
+    process.env.NODE_ENV === "production"
+        ? "/JohnManjeetSeed"
+        : "";
 
 type ProductCardsProps = {
     onAddToCart: (product: Omit<CartItem, "qty">) => void;
 };
 
-export default function ProductCards({ onAddToCart }: ProductCardsProps) {
+export default function ProductCards({
+                                         onAddToCart,
+                                     }: ProductCardsProps) {
     return (
         <section
             id="shop"
-            className="-mt-[2rem] bg-[#071a33] px-6 pb-28 pt-40 text-white"
+            className="-mt-[2rem] bg-[#071a33] px-4 pb-28 pt-32 text-white md:px-6 md:pt-40"
         >
             <div className="mx-auto max-w-[1500px]">
-                <div className="mb-20 grid gap-10 md:grid-cols-[1.1fr_0.8fr_0.3fr] md:items-end">
+                <div className="mb-14 grid gap-10 md:mb-20 md:grid-cols-[1.1fr_0.8fr_0.3fr] md:items-end">
                     <h2 className="max-w-2xl text-5xl font-medium leading-[1.05] tracking-[-0.05em] text-white md:text-6xl">
                         Whole body health starts in the gut.
                     </h2>
 
                     <p className="max-w-md text-lg leading-7 text-white/85">
-                        Formulations that provide sustained support using key scientifically
-                        and clinically-studied ingredients
+                        Formulations that provide sustained support using key
+                        scientifically and clinically-studied ingredients
                     </p>
 
                     <a className="justify-self-start border-b border-white pb-1 font-semibold text-white md:justify-self-end">
@@ -35,7 +39,7 @@ export default function ProductCards({ onAddToCart }: ProductCardsProps) {
                     </a>
                 </div>
 
-                <div className="grid items-start gap-5 md:grid-cols-4">
+                <div className="grid grid-cols-2 items-stretch gap-4 md:grid-cols-4 md:items-start md:gap-5">
                     {products.map((product, index) => (
                         <ProductCard
                             key={product.id}
@@ -102,22 +106,18 @@ function ProductCard({
                 delay: index * 0.08,
                 ease: [0.16, 1, 0.3, 1],
             }}
-            className="group relative min-h-[500px] overflow-hidden rounded-[1.4rem] bg-[#2f5587] p-6 text-center text-white transition-all duration-500 hover:z-20 hover:-translate-y-4 hover:scale-[1.03] hover:bg-[#3a6699] hover:shadow-2xl hover:shadow-black/30"
+            className="group relative flex min-h-[310px] flex-col overflow-hidden rounded-[1.4rem] bg-[#2f5587] p-4 text-center text-white transition-all duration-500 hover:z-20 hover:-translate-y-4 hover:scale-[1.03] hover:bg-[#3a6699] hover:shadow-2xl hover:shadow-black/30 md:min-h-[500px] md:p-6"
         >
-            {product.badge && (
-                <div className="absolute left-3 top-3 rounded-full bg-[#dcebff] px-3 py-1 text-xs font-semibold text-[#052b4f]">
-                    {product.badge}
-                </div>
-            )}
-
-            <div className="mx-auto mb-4 inline-flex rounded-full border border-white/80 px-3 py-1 text-xs text-white">
+            <div className="mx-auto mb-3 inline-flex rounded-full border border-white/80 px-3 py-1 text-[10px] text-white md:mb-4 md:text-xs">
                 {product.code}
             </div>
 
-            <h3 className="text-2xl font-medium text-white">{product.name}</h3>
+            <h3 className="min-h-[48px] text-xl font-medium leading-tight text-white md:min-h-0 md:text-2xl">
+                {product.name}
+            </h3>
 
             <div
-                className={`relative mx-auto mt-10 h-[220px] w-full overflow-visible transition-transform duration-500 group-hover:scale-125 ${
+                className={`relative mx-auto mt-4 h-[170px] w-full overflow-visible transition-transform duration-500 md:mt-10 md:h-[220px] md:group-hover:scale-125 ${
                     isPlaying ? "scale-125" : ""
                 }`}
                 onClick={toggleVideo}
@@ -128,7 +128,7 @@ function ProductCard({
                     src={`${BASE_PATH}/First.png`}
                     alt={product.name}
                     fill
-                    sizes="(max-width: 768px) 80vw, 350px"
+                    sizes="(max-width: 768px) 40vw, 350px"
                     className={`object-contain transition-all duration-500 group-hover:scale-110 group-hover:opacity-0 ${
                         isPlaying ? "scale-110 opacity-0" : "opacity-100"
                     }`}
@@ -144,7 +144,10 @@ function ProductCard({
                     playsInline
                     preload="auto"
                 >
-                    <source src={`${BASE_PATH}/3d.webm`} type="video/webm" />
+                    <source
+                        src={`${BASE_PATH}/3d.webm`}
+                        type="video/webm"
+                    />
                 </video>
             </div>
 
@@ -157,15 +160,16 @@ function ProductCard({
                         price: product.price,
                     })
                 }
-                className="mt-8 rounded-full bg-[#052b4f] px-7 py-3 text-base font-medium text-white transition-all duration-300 group-hover:bg-white group-hover:text-[#052b4f]"
+                className="mt-auto rounded-full bg-[#052b4f] px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 group-hover:bg-white group-hover:text-[#052b4f] md:mt-5 md:px-7 md:py-3 md:text-base"
             >
                 Shop Now
+
                 <span className="ml-2 inline-block opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
           →
         </span>
             </button>
 
-            <p className="mt-8 text-xs tracking-wide text-white/60">
+            <p className="mt-4 text-[11px] leading-4 tracking-wide text-white/60 md:mt-8 md:text-xs">
                 Starting at ${product.price}.99 per month
             </p>
 
