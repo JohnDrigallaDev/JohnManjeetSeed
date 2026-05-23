@@ -136,7 +136,7 @@ function ProductCard({
 
                 <video
                     ref={videoRef}
-                    className={`absolute inset-0 h-full w-full object-contain transition-all duration-500 group-hover:scale-110 group-hover:opacity-100 ${
+                    className={`absolute inset-0 h-full w-full object-contain mix-blend-screen transition-all duration-500 group-hover:scale-110 group-hover:opacity-100 ${
                         isPlaying ? "scale-110 opacity-100" : "opacity-0"
                     }`}
                     muted
