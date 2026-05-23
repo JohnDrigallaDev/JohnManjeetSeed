@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useRef, useState } from "react";
 import { products } from "../data/products";
 import type { CartItem } from "../app/page";
+
 const BASE_PATH =
-    process.env.NODE_ENV === "production"
-        ? "/JohnManjeetSeed"
-        : "";
+    process.env.NODE_ENV === "production" ? "/JohnManjeetSeed" : "";
 
 type ProductCardsProps = {
     onAddToCart: (product: Omit<CartItem, "qty">) => void;
@@ -37,89 +37,141 @@ export default function ProductCards({ onAddToCart }: ProductCardsProps) {
 
                 <div className="grid items-start gap-5 md:grid-cols-4">
                     {products.map((product, index) => (
-                        <motion.div
+                        <ProductCard
                             key={product.id}
-                            initial={{ opacity: 0, y: 45 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{
-                                duration: 0.7,
-                                delay: index * 0.08,
-                                ease: [0.16, 1, 0.3, 1],
-                            }}
-                            className="group relative min-h-[500px] overflow-hidden rounded-[1.4rem] bg-[#2f5587] p-6 text-center text-white transition-all duration-500 hover:z-20 hover:-translate-y-4 hover:scale-[1.03] hover:bg-[#3a6699] hover:shadow-2xl hover:shadow-black/30"
-                        >
-                            {product.badge && (
-                                <div className="absolute left-3 top-3 rounded-full bg-[#dcebff] px-3 py-1 text-xs font-semibold text-[#052b4f]">
-                                    {product.badge}
-                                </div>
-                            )}
-
-                            <div className="mx-auto mb-4 inline-flex rounded-full border border-white/80 px-3 py-1 text-xs text-white">
-                                {product.code}
-                            </div>
-
-                            <h3 className="text-2xl font-medium text-white">
-                                {product.name}
-                            </h3>
-
-                            <div className="relative mx-auto mt-10 h-[220px] w-full overflow-visible transition-transform duration-500 group-hover:scale-125">
-                                {/* Preview Image */}
-                                <Image
-                                    src={`${BASE_PATH}/First.png`}
-                                    alt={product.name}
-                                    fill
-                                    sizes="(max-width: 768px) 80vw, 350px"
-                                    className="object-contain transition-all duration-500 group-hover:scale-110 group-hover:opacity-0"
-                                />
-
-                                {/* Hover Video */}
-                                <video
-                                    className="absolute inset-0 h-full w-full object-contain opacity-0 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100"
-                                    muted
-                                    loop
-                                    playsInline
-                                    preload="auto"
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.play();
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.pause();
-                                        e.currentTarget.currentTime = 0;
-                                    }}
-                                >
-                                    <source src={`${BASE_PATH}/3d.webm`} type="video/webm" />
-                                </video>
-                            </div>
-
-                            <button
-                                onClick={() =>
-                                    onAddToCart({
-                                        id: product.id,
-                                        name: product.name,
-                                        subtitle: product.subtitle,
-                                        price: product.price,
-                                    })
-                                }
-                                className="mt-8 rounded-full bg-[#052b4f] px-7 py-3 text-base font-medium text-white transition-all duration-300 group-hover:bg-white group-hover:text-[#052b4f]"
-                            >
-                                Shop Now
-                                <span className="ml-2 inline-block opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
-    →
-  </span>
-                            </button>
-
-                            <p className="mt-8 text-xs tracking-wide text-white/60">
-                                Starting at ${product.price}.99 per month
-                            </p>
-
-                            <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
-                            </div>
-                        </motion.div>
+                            product={product}
+                            index={index}
+                            onAddToCart={onAddToCart}
+                        />
                     ))}
                 </div>
             </div>
         </section>
+    );
+}
+
+function ProductCard({
+                         product,
+                         index,
+                         onAddToCart,
+                     }: {
+    product: (typeof products)[number];
+    index: number;
+    onAddToCart: (product: Omit<CartItem, "qty">) => void;
+}) {
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const playVideo = async () => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        try {
+            video.currentTime = 0;
+            await video.play();
+            setIsPlaying(true);
+        } catch {
+            setIsPlaying(false);
+        }
+    };
+
+    const stopVideo = () => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        video.pause();
+        video.currentTime = 0;
+        setIsPlaying(false);
+    };
+
+    const toggleVideo = () => {
+        if (isPlaying) {
+            stopVideo();
+        } else {
+            playVideo();
+        }
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 45 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+                duration: 0.7,
+                delay: index * 0.08,
+                ease: [0.16, 1, 0.3, 1],
+            }}
+            className="group relative min-h-[500px] overflow-hidden rounded-[1.4rem] bg-[#2f5587] p-6 text-center text-white transition-all duration-500 hover:z-20 hover:-translate-y-4 hover:scale-[1.03] hover:bg-[#3a6699] hover:shadow-2xl hover:shadow-black/30"
+        >
+            {product.badge && (
+                <div className="absolute left-3 top-3 rounded-full bg-[#dcebff] px-3 py-1 text-xs font-semibold text-[#052b4f]">
+                    {product.badge}
+                </div>
+            )}
+
+            <div className="mx-auto mb-4 inline-flex rounded-full border border-white/80 px-3 py-1 text-xs text-white">
+                {product.code}
+            </div>
+
+            <h3 className="text-2xl font-medium text-white">{product.name}</h3>
+
+            <div
+                className={`relative mx-auto mt-10 h-[220px] w-full overflow-visible transition-transform duration-500 group-hover:scale-125 ${
+                    isPlaying ? "scale-125" : ""
+                }`}
+                onClick={toggleVideo}
+                onMouseEnter={playVideo}
+                onMouseLeave={stopVideo}
+            >
+                <Image
+                    src={`${BASE_PATH}/First.png`}
+                    alt={product.name}
+                    fill
+                    sizes="(max-width: 768px) 80vw, 350px"
+                    className={`object-contain transition-all duration-500 group-hover:scale-110 group-hover:opacity-0 ${
+                        isPlaying ? "scale-110 opacity-0" : "opacity-100"
+                    }`}
+                />
+
+                <video
+                    ref={videoRef}
+                    className={`absolute inset-0 h-full w-full object-contain transition-all duration-500 group-hover:scale-110 group-hover:opacity-100 ${
+                        isPlaying ? "scale-110 opacity-100" : "opacity-0"
+                    }`}
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                >
+                    <source src={`${BASE_PATH}/3d.webm`} type="video/webm" />
+                </video>
+            </div>
+
+            <button
+                onClick={() =>
+                    onAddToCart({
+                        id: product.id,
+                        name: product.name,
+                        subtitle: product.subtitle,
+                        price: product.price,
+                    })
+                }
+                className="mt-8 rounded-full bg-[#052b4f] px-7 py-3 text-base font-medium text-white transition-all duration-300 group-hover:bg-white group-hover:text-[#052b4f]"
+            >
+                Shop Now
+                <span className="ml-2 inline-block opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
+          →
+        </span>
+            </button>
+
+            <p className="mt-8 text-xs tracking-wide text-white/60">
+                Starting at ${product.price}.99 per month
+            </p>
+
+            <div className="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
+            </div>
+        </motion.div>
     );
 }
