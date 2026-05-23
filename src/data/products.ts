@@ -1,0 +1,38 @@
+export const products = [
+    {
+        id: "daily-synbiotic",
+        name: "Daily Synbiotic",
+        subtitle: "Advanced daily gut health system",
+        price: 49,
+        image: "/product1.png",
+        code: "DS-01®",
+        badge: "Bestseller",
+    },
+    {
+        id: "daily-multivitamin",
+        name: "Daily Multivitamin",
+        subtitle: "Daily nutrient support",
+        price: 39,
+        image: "/product2.png",
+        code: "DM-02™",
+        badge: "New",
+    },
+    {
+        id: "energy-focus",
+        name: "Energy + Focus",
+        subtitle: "Cognitive and energy support",
+        price: 34,
+        image: "/product3.png",
+        code: "AM-02™",
+        badge: "New",
+    },
+    {
+        id: "sleep-restore",
+        name: "Sleep + Restore",
+        subtitle: "Nightly recovery support",
+        price: 34,
+        image: "/product4.png",
+        code: "PM-02™",
+        badge: "New",
+    },
+];
