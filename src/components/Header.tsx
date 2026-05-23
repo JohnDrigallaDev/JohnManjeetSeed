@@ -68,7 +68,7 @@ export default function Header({
                     <div
                         className={`hidden items-center gap-8 transition-all duration-500 md:flex ${
                             scrolled
-                                ? "rounded-full border border-white/20 bg-[#aab7c1]/30 px-8 py-4 shadow-xl backdrop-blur-2xl"
+                                ?  "rounded-full border border-white/20 bg-[#aab7c1]/30 px-8 py-2 shadow-xl backdrop-blur-2xl"
                                 : ""
                         }`}
                     >
