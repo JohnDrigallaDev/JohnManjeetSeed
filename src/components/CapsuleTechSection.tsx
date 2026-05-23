@@ -2,6 +2,10 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+const BASE_PATH =
+    process.env.NODE_ENV === "production"
+        ? "/JohnManjeetSeed"
+        : "";
 
 export default function CapsuleTechSection() {
     return (
