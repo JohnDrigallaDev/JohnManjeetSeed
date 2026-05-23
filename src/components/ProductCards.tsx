@@ -63,19 +63,19 @@ export default function ProductCards({ onAddToCart }: ProductCardsProps) {
                                 {product.name}
                             </h3>
 
-                            <div className="relative mx-auto mt-10 h-[220px] w-full overflow-visible">
+                            <div className="relative mx-auto mt-10 h-[220px] w-full overflow-visible transition-transform duration-500 group-hover:scale-140">
                                 {/* Preview Image */}
                                 <Image
                                     src={`${BASE_PATH}/First.png`}
                                     alt={product.name}
                                     fill
                                     sizes="(max-width: 768px) 80vw, 350px"
-                                    className="object-contain transition-opacity duration-300 group-hover:opacity-0"
+                                    className="object-contain transition-all duration-500 group-hover:scale-110 group-hover:opacity-0"
                                 />
 
                                 {/* Hover Video */}
                                 <video
-                                    className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                    className="absolute inset-0 h-full w-full object-contain opacity-0 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100"
                                     muted
                                     loop
                                     playsInline
